@@ -16,6 +16,7 @@ namespace NorthWind.Models
         }
 
         [Key]
+        [Required]
         [StringLength(5)]
         public string CustomerID { get; set; }
 
