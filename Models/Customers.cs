@@ -36,7 +36,8 @@ namespace NorthWind.Models
         [StringLength(15)]
         public string City { get; set; }
 
-        [StringLength(15)]
+        [Required(ErrorMessage = "{0}必填")]
+        [StringLength(10, ErrorMessage = "{0}必須是最大長度為 {1} 字串。")]
         public string Region { get; set; }
 
         [StringLength(10)]
