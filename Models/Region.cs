@@ -15,7 +15,8 @@ namespace NorthWind.Models
             Territories = new HashSet<Territories>();
         }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int RegionID { get; set; }
 
         [Required]

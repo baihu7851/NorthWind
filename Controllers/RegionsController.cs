@@ -10,107 +10,107 @@ using NorthWind.Models;
 
 namespace NorthWind.Controllers
 {
-    public class CustomersController : Controller
+    public class RegionsController : Controller
     {
         private Model db = new Model();
 
-        // GET: Customers
+        // GET: Regions
         public ActionResult Index()
         {
-            return View(db.Customers.ToList());
+            return View(db.Region.ToList());
         }
 
-        // GET: Customers/Details/5
-        public ActionResult Details(string id)
+        // GET: Regions/Details/5
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Customers customers = db.Customers.Find(id);
-            if (customers == null)
+            Region region = db.Region.Find(id);
+            if (region == null)
             {
                 return HttpNotFound();
             }
-            return View(customers);
+            return View(region);
         }
 
-        // GET: Customers/Create
+        // GET: Regions/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Customers/Create
+        // POST: Regions/Create
         // 若要避免過量張貼攻擊，請啟用您要繫結的特定屬性。
         // 如需詳細資料，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country,Phone,Fax")] Customers customers)
+        public ActionResult Create([Bind(Include = "RegionID,RegionDescription")] Region region)
         {
             if (ModelState.IsValid)
             {
-                db.Customers.Add(customers);
+                db.Region.Add(region);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(customers);
+            return View(region);
         }
 
-        // GET: Customers/Edit/5
-        public ActionResult Edit(string id)
+        // GET: Regions/Edit/5
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Customers customers = db.Customers.Find(id);
-            if (customers == null)
+            Region region = db.Region.Find(id);
+            if (region == null)
             {
                 return HttpNotFound();
             }
-            return View(customers);
+            return View(region);
         }
 
-        // POST: Customers/Edit/5
+        // POST: Regions/Edit/5
         // 若要避免過量張貼攻擊，請啟用您要繫結的特定屬性。
         // 如需詳細資料，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country,Phone,Fax")] Customers customers)
+        public ActionResult Edit([Bind(Include = "RegionID,RegionDescription")] Region region)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(customers).State = EntityState.Modified;
+                db.Entry(region).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(customers);
+            return View(region);
         }
 
-        // GET: Customers/Delete/5
-        public ActionResult Delete(string id)
+        // GET: Regions/Delete/5
+        public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Customers customers = db.Customers.Find(id);
-            if (customers == null)
+            Region region = db.Region.Find(id);
+            if (region == null)
             {
                 return HttpNotFound();
             }
-            return View(customers);
+            return View(region);
         }
 
-        // POST: Customers/Delete/5
+        // POST: Regions/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult DeleteConfirmed(int id)
         {
-            Customers customers = db.Customers.Find(id);
-            db.Customers.Remove(customers);
+            Region region = db.Region.Find(id);
+            db.Region.Remove(region);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
