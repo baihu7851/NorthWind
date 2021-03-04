@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using NorthWind.Models;
+using PagedList;
 
 namespace NorthWind.Controllers
 {
@@ -15,9 +16,17 @@ namespace NorthWind.Controllers
         private Model db = new Model();
 
         // GET: Customers
-        public ActionResult Index()
+        public ActionResult Index(string search, string s, int page = 1, int pageSize = 10)
         {
-            return View(db.Customers.ToList());
+            if (!string.IsNullOrEmpty(search?.Trim()))
+            {
+                page = 1;
+                s = search;
+            }
+            ViewBag.oldSearch = s;
+            var data = db.Customers.OrderBy(x => x.CustomerID).AsQueryable();
+            var res = string.IsNullOrEmpty(s?.Trim()) ? data : data.Where(x => x.CompanyName.Contains(s));
+            return View(res.ToPagedList(page, pageSize));
         }
 
         // GET: Customers/Details/5
